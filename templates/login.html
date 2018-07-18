@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="width:200px;margin: 0 auto">
+
+    <h1 style="text-align: center">微信登陆</h1>
+    <img style="height: 200px;width: 200px;" src="https://login.weixin.qq.com/qrcode/{{ qcode }}">
+</div>
+<script src="/static/jquery.js"></script>
+<script>
+    $(function () {//页面加载完成之后自动执行
+        checkLogin()
+    });
+
+    function checkLogin() {
+        $.ajax({
+            url: "/check_login",
+            type: "GET",
+            dataType: "JSON",
+            success: function (arg) {
+                if (arg.code === 201) {//已经扫码
+                    $("img").attr("src", arg.src);
+                    checkLogin();//成功之后调用自己
+                } else if (arg.code === 200) {//已经确认登录
+                    //重定向
+                    location.href = "/index"
+
+                } else {
+                    checkLogin();
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

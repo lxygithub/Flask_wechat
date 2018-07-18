@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<input id="user_msg" placeholder="输入要发送的信息" type="text" name="content">to
+<span id="span_nickname">{{ nickname }}</span>
+<input id="send_msg" type="button" value="发送">
+<script src="/static/jquery.js"></script>
+<script>
+    $(function () {
+        bindSendMessage();
+        fetchMessage();
+    });
+
+    function bindSendMessage() {
+        $('#send_msg').click(function () {
+            $.ajax({
+                url: '{{ url_for("send",username=username,nickname=nickname) }}',
+                type: 'POST',
+                data: {'user_msg': $('#user_msg').val()},
+                success: function () {
+                }
+            })
+        });
+    }
+
+    function fetchMessage() {
+        $.ajax({
+            url: '/get_msg',
+            type: 'GET',
+            success: function () {
+                fetchMessage();
+            }
+        })
+    }
+
+
+
+</script>
+</body>
+</html>

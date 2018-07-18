@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>欢迎登录</h1>
+<div>
+    <img src="/get_img">
+    <h2>{{ init_json.User.NickName }}</h2>
+</div>
+<h3>最近联系人</h3>
+<ul>
+    {% for user in init_json.ContactList %}
+        <li>{{ user.NickName }}</li>
+    {% endfor %}
+
+</ul>
+<a href="/user_list">查看所有联系人</a>
+</body>
+</html>
